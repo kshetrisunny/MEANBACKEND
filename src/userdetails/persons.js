@@ -9,7 +9,7 @@ function getPerson(cb) {
                 var db = db.db('userdetails');
                 db.collection("persons").find({}).toArray(function(err,result) {
                     if (result) {
-                        cb(false,result);
+                        cb(null,result);
                     } else {
                         cb("Error in Retriving Data");
                     }
@@ -32,7 +32,7 @@ function addPerson(req,cb) {
             var db = db.db('userdetails');
             db.collection("persons").insertOne(data, function(err,result) {
                 if (result) {
-                    cb(false,result);
+                    cb(null,result);
                 } else {
                     cb("error in inserting data");
                 }
@@ -51,11 +51,11 @@ function updatePerson(req,cb) {
     };
 
     var db = db.db('userdetails');
-    db.collection("persons").UpdateOne({_id:req.body.id},data,{upsert: true}, function(err,result) {
+    db.collection("persons").updateOne({_id:req.body.id},{ $set: data },{upsert: true}, function(err,result) {
         if (result) {
-            cb(false,result);
+            cb(null,result);
         } else {
-            cb("error in updating data");
+            cb("error in updating data" +err);
         }
     });
 
@@ -67,11 +67,11 @@ function updatePerson(req,cb) {
 function deletePerson(req,cb) {
     connection.mongoConnection(function(err,db) {
         var db = db.db('userdetails');
-        db.collection("persons").findOneAndDelete({_id:req.params.id}).toArray( function(err,result) {
+        db.collection("persons").deleteOne({_id:req.query.id} , function(err,result) {
             if (result) {
-                cb(false,result);
+                cb(null,result);
             } else {
-                cb("error in deleting data");
+                cb("error in deleting data" +err);
             }
         });
     });

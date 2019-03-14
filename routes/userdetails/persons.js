@@ -44,9 +44,6 @@ router.put('/', function (req, res, next) {
             });
         }
     });
-    res.render('index', {
-        title: 'Express'
-    });
 });
 
 
@@ -63,9 +60,6 @@ router.delete('/', function (req, res, next) {
                 result: typeResult
             });
         }
-    });
-    res.render('index', {
-        title: 'Express'
     });
 });
 
