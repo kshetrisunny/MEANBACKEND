@@ -51,7 +51,7 @@ function updatePerson(req,cb) {
     };
 
     var db = db.db('userdetails');
-    db.collection("persons").updateOne({_id:req.body.id},data,{upsert: true}, function(err,result) {
+    db.collection("persons").UpdateOne({_id:req.body.id},data,{upsert: true}, function(err,result) {
         if (result) {
             cb(false,result);
         } else {
@@ -67,7 +67,7 @@ function updatePerson(req,cb) {
 function deletePerson(req,cb) {
     connection.mongoConnection(function(err,db) {
         var db = db.db('userdetails');
-        db.collection("persons").findAndDeleteOne({_id:req.params.id}).toArray( function(err,result) {
+        db.collection("persons").findOneAndDelete({_id:req.params.id}).toArray( function(err,result) {
             if (result) {
                 cb(false,result);
             } else {
