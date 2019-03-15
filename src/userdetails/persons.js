@@ -43,6 +43,7 @@ function addPerson(req,cb) {
 
 function updatePerson(req,cb) {  
     connection.mongoConnection(function(err,db) {
+            // console.log(err);
     var data = {
         Name: req.body.Name,
         Gender: req.body.Gender,
@@ -57,7 +58,7 @@ function updatePerson(req,cb) {
             console.log(result);
         } else {
             cb("error in updating data" +err);
-            console.log(err);
+            // console.log(err);
         }
     });
 
@@ -68,13 +69,19 @@ function updatePerson(req,cb) {
 
 function deletePerson(req,cb) {
     connection.mongoConnection(function(err,db) {
+        console.log(err);
         var db = db.db('userdetails');
         db.collection("persons").deleteOne({_id:req.query.id} , function(err,result) {
             if (result) {
                 cb(null,result);
+                console.log(result);
             } else {
                 cb("error in deleting data" +err);
+                console.log(err);
             }
+                console.log(err);
+                console.log(result);
+
         });
     });
 }
