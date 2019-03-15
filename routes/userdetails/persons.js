@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var person = require('../../src/userdetails/persons');
 
-router.get('/', function(req, res) {
+router.get('/api/persons', function(req, res) {
     person.getPerson(function(typeError, typeResult) {
         if (typeError) {
             res.send({status: false, error: "No Data Found"});
@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
     });
 });
 
-router.post('/', function (req, res, next) {
+router.post('/api/persons', function (req, res, next) {
     person.addPerson(req, function (typeError, typeResult) {
         if (typeError) {
             res.send({
@@ -29,8 +29,7 @@ router.post('/', function (req, res, next) {
 });
 
 
-/* GET home page. */
-router.put('/', function (req, res, next) {
+router.put('/api/persons', function (req, res, next) {
     person.updatePerson(req, function (typeError, typeResult) {
         if (typeError) {
             res.send({
@@ -47,7 +46,7 @@ router.put('/', function (req, res, next) {
 });
 
 
-router.delete('/', function (req, res, next) {
+router.delete('/api/persons', function (req, res, next) {
     person.deletePerson(req, function (typeError, typeResult) {
         if (typeError) {
             res.send({

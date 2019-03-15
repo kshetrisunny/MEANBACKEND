@@ -20,10 +20,10 @@ function getPerson(cb) {
 
 function addPerson(req,cb) {
     var data = {
-        "name": req.body.name,
-        "gender": req.body.gender,
-        "age": req.body.age,
-        "mobile": req.body.mobile
+        Name: req.body.Name,
+        Gender: req.body.Gender,
+        Age: req.body.Age,
+        Mobile: req.body.Mobile
     };
     connection.mongoConnection(function(err,db) {
         if (err) {
@@ -44,18 +44,20 @@ function addPerson(req,cb) {
 function updatePerson(req,cb) {  
     connection.mongoConnection(function(err,db) {
     var data = {
-        "name": req.body.name,
-        "gender": req.body.gender,
-        "age": req.body.age,
-        "mobile": req.body.mobile
+        Name: req.body.Name,
+        Gender: req.body.Gender,
+        Age: req.body.Age,
+        Mobile: req.body.Mobile
     };
 
     var db = db.db('userdetails');
     db.collection("persons").updateOne({_id:req.body.id},{ $set: data },{upsert: true}, function(err,result) {
         if (result) {
             cb(null,result);
+            console.log(result);
         } else {
             cb("error in updating data" +err);
+            console.log(err);
         }
     });
 
