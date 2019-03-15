@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 
 var connection = require("../database/connect");
+var ObjectId = require('mongodb').ObjectID;
 function getPerson(cb) {
     connection.mongoConnection(function(err,db) {
         if (err) {
@@ -52,7 +53,7 @@ function updatePerson(req,cb) {
     };
 
     var db = db.db('userdetails');
-    db.collection("persons").updateOne({_id:req.body.id},{ $set: data },{upsert: true}, function(err,result) {
+    db.collection("persons").updateMany({_id: ObjectId(req.body.id)},{ $set: data },{upsert: false}, function(err,result) {
         if (result) {
             cb(null,result);
             console.log(result);
@@ -71,7 +72,7 @@ function deletePerson(req,cb) {
     connection.mongoConnection(function(err,db) {
         console.log(err);
         var db = db.db('userdetails');
-        db.collection("persons").deleteOne({_id:req.query.id} , function(err,result) {
+        db.collection("persons").deleteOne({_id:ObjectId(req.query.id)} , function(err,result) {
             if (result) {
                 cb(null,result);
                 console.log(result);
