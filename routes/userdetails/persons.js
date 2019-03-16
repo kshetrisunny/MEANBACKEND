@@ -60,6 +60,7 @@ router.delete('/api/persons', function (req, res, next) {
             });
         }
     });
+    console.log(req,res);
 });
 
 module.exports = router;

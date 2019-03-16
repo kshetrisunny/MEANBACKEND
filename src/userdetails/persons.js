@@ -53,7 +53,7 @@ function updatePerson(req,cb) {
     };
 
     var db = db.db('userdetails');
-    db.collection("persons").updateMany({_id: ObjectId(req.body.id)},{ $set: data },{upsert: false}, function(err,result) {
+    db.collection("persons").updateMany({_id: ObjectId(req.body._id)},{ $set: data },{upsert: false}, function(err,result) {
         if (result) {
             cb(null,result);
             console.log(result);
@@ -71,8 +71,9 @@ function updatePerson(req,cb) {
 function deletePerson(req,cb) {
     connection.mongoConnection(function(err,db) {
         console.log(err);
+        console.log(req.query.id);
         var db = db.db('userdetails');
-        db.collection("persons").deleteOne({_id:ObjectId(req.query.id)} , function(err,result) {
+        db.collection("persons").deleteOne({_id:ObjectId(req.query.id)},function(err,result) {
             if (result) {
                 cb(null,result);
                 console.log(result);
@@ -85,6 +86,7 @@ function deletePerson(req,cb) {
 
         });
     });
+    console.log(req,cb);
 }
 
 
